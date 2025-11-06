@@ -1,35 +1,42 @@
-#ifndef LEXER_HPP
-#define LEXER_HPP
+#ifndef LEXER_H
+#define LEXER_H
 
 #include "str.h"
-#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef enum {
+    TOKEN_ERROR,
     TOKEN_EOF,
-    TOKEN_INDENT,
+    TOKEN_NUMBER,
+    TOKEN_IDENT,
     TOKEN_PLUS,
     TOKEN_MINUS,
     TOKEN_STAR,
     TOKEN_SLASH,
     TOKEN_CARET,
     TOKEN_LPAREN,
-    TOKEN_RPAREN,
+    TOKEN_RPAREN
 } TokenType;
 
 typedef struct {
-    TokenType token;
+    TokenType type;
     String lexeme;
+    size_t length;
 } Token;
 
 typedef struct {
-    const String input;
+    String input;
+    String start;
+    String current;
     size_t length;
-    size_t pos;
-    char cur_char;
 } Lexer;
 
-Token tokenInit(Lexer *lexer, TokenType token);
-Lexer lexerInit(const String input);
+Lexer *lexerInit(const String input);
 void lexerFree(Lexer *lexer);
+Token *lexerNextToken(Lexer *lexer);
+void tokenFree(Token *token);
+void tokenPrint(const Token *token);
 
 #endif
