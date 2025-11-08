@@ -17,7 +17,8 @@ typedef enum {
     TOKEN_SLASH,
     TOKEN_CARET,
     TOKEN_LPAREN,
-    TOKEN_RPAREN
+    TOKEN_RPAREN,
+    TOKEN_MAX,
 } TokenType;
 
 typedef struct {
